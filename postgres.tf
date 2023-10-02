@@ -2,7 +2,7 @@ resource "random_password" "pass" {
   length = 20
 }
 resource "azurerm_postgresql_flexible_server" "default" {
-  name                   = "dev-database-server"
+  name                   = "app-database-server"
   resource_group_name    = azurerm_resource_group.tier_app.name
   location               = azurerm_resource_group.tier_app.location
   version                = "13"
