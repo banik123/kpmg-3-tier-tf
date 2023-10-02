@@ -31,7 +31,36 @@ resource "azurerm_subnet" "subnet-2" {
   resource_group_name  = azurerm_resource_group.tier_app.name
   virtual_network_name = azurerm_virtual_network.vpc.name
   address_prefixes     = ["10.2.0.0/16"]
+  service_endpoints    = ["Microsoft.Storage"]
+  delegation {
+    name = "fs"
 
+    service_delegation {
+      name = "Microsoft.DBforPostgreSQL/flexibleServers"
+
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/join/action",
+      ]
+    }
+  }
+}
+resource "azurerm_subnet_network_security_group_association" "default" {
+  subnet_id                 = azurerm_subnet.subnet-2.id
+  network_security_group_id = azurerm_network_security_group.database.id
+}
+
+resource "azurerm_private_dns_zone" "default" {
+  name                = "app-pdz.postgres.database.azure.com"
+  resource_group_name = azurerm_resource_group.tier_app.name
+
+  depends_on = [azurerm_subnet_network_security_group_association.default]
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "link" {
+  name                  = "app-pdzvnetlink.com"
+  private_dns_zone_name = azurerm_private_dns_zone.default.name
+  virtual_network_id    = azurerm_virtual_network.vpc.id
+  resource_group_name   = azurerm_resource_group.tier_app.name
 }
 
 resource "azurerm_public_ip" "myvm1publicip" {
@@ -59,6 +88,23 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+}
+resource "azurerm_network_security_group" "database" {
+  name                = "database-nsg"
+  location            = azurerm_resource_group.tier_app.location
+  resource_group_name = azurerm_resource_group.tier_app.name
+
+  security_rule {
+    name                       = "test"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "*"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
