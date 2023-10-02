@@ -6,3 +6,12 @@ variable "admin_password" {
   type        = string
   default     = "admin123!"
 }
+variable "aks_cluster_name" {
+  type        = string
+  default     = "env1-test-aks"
+}
+variable "node_count" {
+  type        = number
+  default     = 3
+}
+
