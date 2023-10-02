@@ -20,8 +20,10 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     orchestrator_version = "1.26.3"
     availability_zones   = [1, 2]
     enable_auto_scaling  = true
-    max_count            = 3
-    min_count            = 1
+    max_count            = 5
+    min_count            = 3
+    vnet_subnet_id       = azurerm_subnet.subnet-1.id
+    os_type              = "Linux"
     os_disk_size_gb = 30
     node_labels = {
       "environment"      = "dev"
