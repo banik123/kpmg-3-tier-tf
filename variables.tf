@@ -1,6 +1,6 @@
 variable "admin_user" {
   type        = string
-  default     = "admin"
+  default     = "adminuser"
 }
 variable "admin_password" {
   type        = string
