@@ -12,14 +12,8 @@ resource "azurerm_postgresql_flexible_server" "default" {
   administrator_password = random_password.pass.result
   zone                   = "1"
   storage_mb             = 32768
-  sku_name               = "GP_Standard_D2s_v3"
+  sku_name               = "GP_Standard_D4s_v3"
   backup_retention_days  = 7
 
   depends_on = [azurerm_private_dns_zone_virtual_network_link.link]
-}
-resource "azurerm_postgresql_flexible_server_database" "default" {
-  name      = "tf-db"
-  server_id = azurerm_postgresql_flexible_server.default.id
-  collation = "en_US.UTF8"
-  charset   = "UTF8"
 }
