@@ -1,5 +1,5 @@
 resource "azurerm_kubernetes_cluster_node_pool" "worker" {
-  zones = [ 1, 2]
+  availability_zones = [ 1, 2]
   enable_auto_scaling   = true
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
   max_count             = 5
