@@ -6,6 +6,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   size                  = "Standard_DS1_v2"
   admin_username        = var.admin_user
   admin_password        = var.admin_password
+  disable_password_authentication = false
 
   source_image_reference {
     publisher = "canonical"
