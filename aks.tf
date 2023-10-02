@@ -19,7 +19,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     name       = "apppool"
     vm_size    = "Standard_D2_v2"
     orchestrator_version = "1.26.3"
-    availability_zones   = [1, 2]
+    zones   = [1, 2]
     enable_auto_scaling  = true
     max_count            = 5
     min_count            = 3
