@@ -34,4 +34,33 @@ resource "azurerm_subnet" "subnet-2" {
 
 }
 
+resource "azurerm_public_ip" "myvm1publicip" {
+  name = "publicip1"
+  location = azurerm_resource_group.tier_app.location
+  resource_group_name = azurerm_resource_group.tier_app.name
+  allocation_method = "Dynamic"
+  sku = "Basic"
+  depends_on = [
+    azurerm_resource_group.tier_app,
+
+  ]
+}
+
+resource "azurerm_network_interface" "myvm1nic" {
+  name = "myvm1-nic"
+  location = azurerm_resource_group.tier_app.location
+  resource_group_name = azurerm_resource_group.tier_app.name
+
+  ip_configuration {
+    name = "ipconfig1"
+    subnet_id = azurerm_subnet.subnet-1.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id = azurerm_public_ip.myvm1publicip.id
+  }
+    depends_on = [
+    azurerm_public_ip.myvm1publicip,
+    azurerm_virtual_network.vpc
+  ]
+}
+
 
