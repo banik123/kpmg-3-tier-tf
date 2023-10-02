@@ -1,11 +1,11 @@
-resource "azurerm_windows_virtual_machine" "vm" {
+resource "azurerm_linux_virtual_machine" "vm" {
   name                  = "vm"  
   location              = azurerm_resource_group.tier_app.location
   resource_group_name   = azurerm_resource_group.tier_app.name
   network_interface_ids = [azurerm_network_interface.myvm1nic.id]
-  size                  = "Standard D2s v3"
-  admin_username        = "adminuser"
-  admin_password        = "Password123!"
+  size                  = "Standard_DS1_v2"
+  admin_username        = var.admin_user
+  admin_password        = var.admin_password
 
   source_image_reference {
     publisher = "canonical"
