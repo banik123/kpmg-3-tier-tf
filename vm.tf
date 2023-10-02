@@ -3,7 +3,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
   location              = azurerm_resource_group.tier_app.location
   resource_group_name   = azurerm_resource_group.tier_app.name
   network_interface_ids = [azurerm_network_interface.myvm1nic.id]
-  size                  = "Standard_B1s"
+  size                  = "Standard D2s v3"
   admin_username        = "adminuser"
   admin_password        = "Password123!"
 
