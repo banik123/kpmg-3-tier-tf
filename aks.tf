@@ -1,7 +1,7 @@
 resource "azuread_group" "aks_administrators" {
   display_name        = "cluster-administrators"
   security_enabled = true
-  description = "Azure AKS Kubernetes administrators for the ${azurerm_kubernetes_cluster.k8s.name}."
+  description = "Azure AKS Kubernetes administrators for the ${var.aks_cluster_name}."
 }
 
 resource "azurerm_kubernetes_cluster" "k8s" {
