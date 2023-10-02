@@ -9,7 +9,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "worker" {
   orchestrator_version  = "1.26.3"
   os_disk_size_gb       = 30
   os_type               = "Linux"
-  vm_size               = "Standard_DS2_v2"
+  vm_size               = "Standard_B2as_v2"
   priority              = "Regular"
   vnet_subnet_id        = azurerm_subnet.subnet-2.id 
   node_labels = {

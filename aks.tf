@@ -17,7 +17,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
 
   default_node_pool {
     name       = "apppool"
-    vm_size    = "Standard_D2_v2"
+    vm_size    = "Standard_B2as_v2"
     orchestrator_version = "1.26.3"
     zones   = [1, 2]
     enable_auto_scaling  = true
