@@ -31,13 +31,17 @@ resource "azurerm_subnet" "subnet-2" {
   resource_group_name  = azurerm_resource_group.tier_app.name
   virtual_network_name = azurerm_virtual_network.vpc.name
   address_prefixes     = ["10.2.0.0/16"]
+}
+resource "azurerm_subnet" "subnet-3" {
+  name                 = "subnet-3"
+  resource_group_name  = azurerm_resource_group.tier_app.name
+  virtual_network_name = azurerm_virtual_network.vpc.name
+  address_prefixes     = ["10.3.0.0/16"]
   service_endpoints    = ["Microsoft.Storage"]
   delegation {
     name = "fs"
-
     service_delegation {
       name = "Microsoft.DBforPostgreSQL/flexibleServers"
-
       actions = [
         "Microsoft.Network/virtualNetworks/subnets/join/action",
       ]
@@ -45,7 +49,7 @@ resource "azurerm_subnet" "subnet-2" {
   }
 }
 resource "azurerm_subnet_network_security_group_association" "default" {
-  subnet_id                 = azurerm_subnet.subnet-2.id
+  subnet_id                 = azurerm_subnet.subnet-3.id
   network_security_group_id = azurerm_network_security_group.database.id
 }
 

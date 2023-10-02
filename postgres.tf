@@ -6,7 +6,7 @@ resource "azurerm_postgresql_flexible_server" "default" {
   resource_group_name    = azurerm_resource_group.tier_app.name
   location               = azurerm_resource_group.tier_app.location
   version                = "13"
-  delegated_subnet_id    = azurerm_subnet.subnet-2.id
+  delegated_subnet_id    = azurerm_subnet.subnet-3.id
   private_dns_zone_id    =  azurerm_private_dns_zone.default.id
   administrator_login    = "adminTerraform"
   administrator_password = random_password.pass.result
