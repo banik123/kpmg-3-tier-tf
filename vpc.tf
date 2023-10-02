@@ -1,13 +1,13 @@
-resource "azurerm_resource_group" "3-tier" {
-  name     = "3-tier"
+resource "azurerm_resource_group" "tier_app" {
+  name     = "tier_app"
   location = "West Europe"
 }
 
 resource "azurerm_virtual_network" "vpc" {
-  name                = "3-tier-vnet"
+  name                = "app-vnet"
   address_space       = ["10.0.0.0/8"]
-  location            = azurerm_resource_group.3-tier.location
-  resource_group_name = azurerm_resource_group.3-tier.name
+  location            = azurerm_resource_group.tier_app.location
+  resource_group_name = azurerm_resource_group.tier_app.name
   depends_on = [
     azurerm_resource_group.3-tier
   ]
