@@ -17,12 +17,12 @@ resource "azurerm_kubernetes_cluster" "k8s" {
 
   default_node_pool {
     name       = "apppool"
-    vm_size    = "Standard_B2as_v2"
+    vm_size    = "Standard_D4s_v3"
     orchestrator_version = "1.26.3"
-    zones   = [1, 2]
+    zones   = [3]
     enable_auto_scaling  = true
-    max_count            = 5
-    min_count            = 3
+    max_count            = 3
+    min_count            = 1
     vnet_subnet_id       = azurerm_subnet.subnet-1.id
     os_disk_size_gb = 30
     node_labels = {
