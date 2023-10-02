@@ -37,7 +37,7 @@ azure_active_directory_role_based_access_control {
   admin_group_object_ids = [azuread_group.aks_administrators.id]
 }    
   linux_profile {
-    admin_username = d1admin
+    admin_username = "d1admin"
     ssh_key {
       key_data = file(var.ssh_public_key)
     }
