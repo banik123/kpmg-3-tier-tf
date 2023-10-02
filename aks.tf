@@ -1,6 +1,6 @@
 resource "azuread_group" "aks_administrators" {
   name        = "cluster-administrators"
-  description = "Azure AKS Kubernetes administrators for the ${aks_cluster_name}."
+  description = "Azure AKS Kubernetes administrators for the ${var.aks_cluster_name}."
 }
 
 resource "azurerm_kubernetes_cluster" "k8s" {
@@ -41,7 +41,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     
   }
   linux_profile {
-    admin_username = ubuntu
+    admin_username = var.admin_user
     admin_password = var.admin_password
     disable_password_authentication = false
 
